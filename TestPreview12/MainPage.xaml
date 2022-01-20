@@ -1,0 +1,61 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TestPreview12.MainPage"
+             BackgroundColor="{DynamicResource SecondaryColor}"
+				xmlns:controls="clr-namespace:TestPreview12"
+			 >
+	<ScrollView>
+		<StackLayout>
+			<Label >
+Below is a CollectionViewItem (is-a ContentView)
+It has a ControlTemplate that TemplateBinds to 'Offset'.
+Modifying this offset modifies the left-margin of the CollectionViewItem
+This works on Windows Desktop and Android
+You should see it oscillate left and right
+			</Label>
+			
+			<Label/>
+
+			<controls:CollectionViewItem Background="LightBlue">
+				<StackLayout Orientation="Horizontal">
+					<Label Text="{Binding Offset, StringFormat='{0:F2}'}" />
+					<Label Text="  ... " />
+					<Label Text="This is a CollectionViewItem" />
+				</StackLayout>
+			</controls:CollectionViewItem>
+
+			<Label/>
+
+			<Label >
+Below is a CollectionView containing 3 CollectionViewItem instances
+Modifying the offset works on Windows Desktop
+It does not work on Android
+Not tested on other platforms
+			</Label>
+			
+			<Label/>
+			
+			<CollectionView ItemsSource="{Binding ThingCollection}" SelectionMode="Single" Background="LightBlue">
+				<CollectionView.ItemTemplate>
+					<DataTemplate>
+						<controls:CollectionViewItem>
+							<StackLayout Orientation="Horizontal">
+								<Label Text="{Binding Offset, StringFormat='Offset is {0:F2}'}" />
+								<Label Text="  ... " />
+								<Label Text="{Binding Name}" />
+							</StackLayout>
+						</controls:CollectionViewItem>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
+
+			<Label/>
+			<Label/>
+
+			<Label TextColor="DarkRed">
+BUG: ControlTemplate does not rearrange itself in response to TemplateBinding changes when it is inside a CollectionView and running on Android 
+This causes problems when recycling CollectionView containers because the recycled container's ControlTemplate is not updated!
+			</Label>
+		</StackLayout>
+	</ScrollView>
+</ContentPage>
