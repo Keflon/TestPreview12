@@ -16,7 +16,7 @@
             that contains one of these instances when the target platform is Android.
             More generally, ControlTemplates within CollectionViews do not update their layout when 
             they are recycled.
-            I have a MAUI TreeView that uses a ControlTemplate to draw the intent for nested items, 
+            I have a MAUI TreeView that uses a ControlTemplate to draw the indent for nested items, 
             and it needs this fixed to work on Android!
             -->
             <StackLayout 
